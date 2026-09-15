@@ -4,10 +4,7 @@ import { z } from "zod";
 const orderSchema = z.object({
   plan: z.enum(["Website Hosting", "Virtual Servers", "Dedicated Servers"]),
   name: z.string().trim().min(2).max(100),
-  contact: z.string().trim().min(3).max(255).refine(
-    (value) => /^@[A-Za-z0-9_]{5,32}$/.test(value) || z.string().email().safeParse(value).success,
-    "Enter a valid email or Telegram username",
-  ),
+  contact: z.string().trim().min(3).max(255).refine(isValidContact, "Enter a valid email or Telegram username"),
 });
 
 export const sendTelegramOrder = createServerFn({ method: "POST" })
