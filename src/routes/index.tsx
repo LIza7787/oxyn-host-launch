@@ -2,8 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState, type FormEvent } from "react";
 import {
-  Activity, ArrowRight, Bot, Check, ChevronRight, CircleCheck, Cloud,
-  Github, Globe2, Menu, Server, ShieldCheck, Sparkles, Terminal,
+  Activity, ArrowRight, Bot, Check, ChevronRight, Cloud,
+  Github, Globe2, Menu, Server, ShieldCheck, Sparkles,
   Twitter, X, Zap,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -90,39 +90,37 @@ function Index() {
     </header>
 
     <main id="top">
-      <section className="relative mx-auto grid min-h-[820px] max-w-7xl items-center gap-16 px-5 pb-20 pt-32 lg:grid-cols-[1.08fr_.92fr] lg:px-8 lg:pt-24">
+      <section className="relative mx-auto grid min-h-[780px] max-w-7xl items-center gap-24 px-5 pb-24 pt-36 lg:grid-cols-2 lg:px-8 lg:pt-28">
         <div className="pointer-events-none absolute inset-0 grid-surface opacity-25" />
-        <div className="relative z-10">
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1.5 text-xs font-medium text-primary"><Zap className="size-3" /> NVMe KVM Powered Infrastructure</div>
-          <h1 className="max-w-2xl text-4xl leading-[1.12] text-foreground sm:text-5xl lg:text-6xl">High-Performance Cloud Hosting with <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">Zero Setup Complexity.</span></h1>
-          <p className="mt-7 max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">Deploy your websites and applications in seconds with automated Anti-DDoS protection, 99.99% uptime, and smart AI server diagnostics.</p>
-          <form id="domain" onSubmit={checkDomain} className="glass-panel mt-10 max-w-xl rounded-lg p-2.5">
-            <div className="flex flex-col gap-2 sm:flex-row"><div className="relative flex-1"><Globe2 className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"/><Input value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="Search domain (e.g. project.oxyn)..." className="h-12 border-0 bg-transparent pl-10 shadow-none" aria-label="Domain name" /></div><Button type="submit" variant="glow" className="h-12">Check Availability <ChevronRight /></Button></div>
-            <div className="flex flex-wrap gap-2 px-1 pt-3">{[".com £8.99/yr", ".io £24.99/yr", ".dev £10.99/yr", ".uk £4.99/yr"].map((t) => <span key={t} className="rounded-full border border-border/70 bg-muted/40 px-2.5 py-1 text-[11px] font-medium text-muted-foreground">{t}</span>)}</div>
-          </form>
-        </div>
-
-        <div className="relative z-10 mx-auto w-full max-w-xl">
-          <div className="absolute -inset-8 bg-primary/10 blur-3xl opacity-70" />
-          <div className="glass-panel relative overflow-hidden rounded-lg">
-            <div className="flex items-center justify-between border-b border-border px-5 py-4"><div className="flex gap-1.5"><span className="size-2.5 rounded-full bg-destructive"/><span className="size-2.5 rounded-full bg-chart-4"/><span className="size-2.5 rounded-full bg-success"/></div><span className="font-mono text-[11px] text-muted-foreground">deploy.oxyn / terminal</span><Terminal className="size-4 text-primary"/></div>
-            <div className="space-y-5 p-5 sm:p-7">
-              <div className="grid gap-2 sm:grid-cols-3">{[
-                { value: "Operational", label: "Status", Icon: CircleCheck },
-                { value: "1.2s", label: "Deploy speed", Icon: Zap },
-                { value: "Active", label: "DDoS shield", Icon: ShieldCheck },
-              ].map(({ value, label, Icon }) => <div key={value} className="rounded-md border border-border bg-background/50 p-3"><Icon className="mb-3 size-4 text-primary"/><span className="block text-[10px] uppercase text-muted-foreground">{label}</span><b className="mt-1 block font-mono text-xs">{value}</b></div>)}</div>
-              <div className="rounded-md border border-border bg-background/70 p-5 font-mono text-xs leading-7 text-muted-foreground">
-                <p className="animate-[terminal-line_.4s_ease-out] text-foreground"><span className="text-primary">$</span> git push oxyn main</p>
-                <p className="animate-[terminal-line_.4s_.35s_both]">→ Building project...</p>
-                <p className="animate-[terminal-line_.4s_.7s_both]">→ Provisioning edge network...</p>
-                <p className="animate-[terminal-line_.4s_1.05s_both] text-success">✓ Deployment live in 1.2s</p>
-                <p className="animate-[terminal-line_.4s_1.4s_both] text-primary">https://project.oxyn.host <span className="inline-block animate-[pulse-soft_1s_infinite]">▋</span></p>
-              </div>
-              <div className="flex items-center justify-between border-t border-border pt-4 text-xs text-muted-foreground"><span>fra-01 · NVMe cluster</span><span className="flex items-center gap-1.5 text-success"><span className="size-1.5 rounded-full bg-success"/> All systems nominal</span></div>
-            </div>
+        <div className="relative z-10 max-w-xl">
+          <h1 className="text-4xl leading-[1.15] text-foreground sm:text-5xl lg:text-[3.4rem]">High-Performance Cloud Hosting.</h1>
+          <p className="mt-8 text-base leading-8 text-muted-foreground sm:text-lg">Blazing fast VPS and web hosting backed by 24/7 support.</p>
+          <div className="mt-12 flex flex-col gap-3 sm:flex-row">
+            <Button variant="glow" size="lg" className="h-12 px-7" onClick={() => openOrder("Virtual Servers")}>Get Started <ArrowRight /></Button>
+            <Button variant="glass" size="lg" className="h-12 px-7" onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}>View Plans</Button>
           </div>
         </div>
+
+        <div className="relative z-10 mx-auto w-full max-w-md">
+          <div className="absolute -inset-16 bg-primary/10 blur-3xl opacity-60" />
+          <div className="glass-panel relative flex aspect-square flex-col items-center justify-center rounded-2xl">
+            <div className="absolute inset-10 rounded-full border border-primary/15" />
+            <div className="absolute inset-20 rounded-full border border-primary/10" />
+            <div className="relative flex size-24 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 shadow-[var(--shadow-glow)]">
+              <Server className="size-11 text-primary" />
+            </div>
+            <span className="mt-10 text-sm font-medium text-foreground">Oxyn Node · fra-01</span>
+            <span className="mt-2 flex items-center gap-1.5 text-xs text-success"><span className="size-1.5 rounded-full bg-success"/> All systems nominal</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="domain" className="mx-auto max-w-3xl px-5 pb-28 pt-6 lg:px-8">
+        <div className="text-center"><h2 className="text-2xl sm:text-3xl">Find your perfect domain.</h2><p className="mt-4 text-sm text-muted-foreground">Check availability instantly and secure your name before someone else does.</p></div>
+        <form onSubmit={checkDomain} className="glass-panel mt-10 rounded-lg p-2.5">
+          <div className="flex flex-col gap-2 sm:flex-row"><div className="relative flex-1"><Globe2 className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"/><Input value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="Search domain (e.g. project.oxyn)..." className="h-12 border-0 bg-transparent pl-10 shadow-none" aria-label="Domain name" /></div><Button type="submit" variant="glow" className="h-12">Check Availability <ChevronRight /></Button></div>
+          <div className="flex flex-wrap justify-center gap-2 px-1 pt-3">{[".com £8.99/yr", ".io £24.99/yr", ".dev £10.99/yr", ".uk £4.99/yr"].map((t) => <span key={t} className="rounded-full border border-border/70 bg-muted/40 px-2.5 py-1 text-[11px] font-medium text-muted-foreground">{t}</span>)}</div>
+        </form>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 lg:px-8"><div className="glass-panel grid rounded-lg sm:grid-cols-2 lg:grid-cols-4">{[["99.99%", "Uptime SLA"], ["< 8ms", "Global Latency"], ["120K+", "Active Projects Hosted"], ["24/7/365", "Expert Support"]].map(([value,label], i) => <div key={label} className={`p-6 text-center ${i ? "border-t border-border sm:border-l sm:border-t-0" : ""}`}><strong className="font-display text-2xl font-semibold tracking-tight text-foreground">{value}</strong><span className="mt-1 block text-xs text-muted-foreground">{label}</span></div>)}</div></section>
