@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { sendTelegramOrder } from "@/lib/orders.functions";
+import { sendTelegramOrder, isValidContact } from "@/lib/orders.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
