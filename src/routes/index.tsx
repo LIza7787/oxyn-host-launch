@@ -62,6 +62,10 @@ function Index() {
       toast.error("That answer isn’t correct. Please try again.");
       return;
     }
+    if (!isValidContact(contact)) {
+      toast.error("Enter a valid email or Telegram username (e.g. alex@company.com or @alex).");
+      return;
+    }
     setSending(true);
     try {
       await sendOrder({ data: { plan: selectedPlan, name, contact } });
