@@ -1,6 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
+export const isValidContact = (value: string) => {
+  const v = value.trim();
+  return /^@?[A-Za-z0-9_]{4,32}$/.test(v) || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+};
+
 const orderSchema = z.object({
   plan: z.enum(["Website Hosting", "Virtual Servers", "Dedicated Servers"]),
   name: z.string().trim().min(2).max(100),
