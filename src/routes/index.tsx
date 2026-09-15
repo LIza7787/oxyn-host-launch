@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { sendTelegramOrder } from "@/lib/orders.functions";
+import { sendTelegramOrder, isValidContact } from "@/lib/orders.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -60,6 +60,10 @@ function Index() {
     event.preventDefault();
     if (Number(captcha) !== challenge.a + challenge.b) {
       toast.error("That answer isn’t correct. Please try again.");
+      return;
+    }
+    if (!isValidContact(contact)) {
+      toast.error("Enter a valid email or Telegram username (e.g. alex@company.com or @alex).");
       return;
     }
     setSending(true);
