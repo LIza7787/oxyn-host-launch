@@ -50,12 +50,18 @@ function Index() {
   const checkDomain = (event: FormEvent) => {
     event.preventDefault();
     const clean = domain.trim().toLowerCase();
-    if (!/^[a-z0-9][a-z0-9-]{1,62}\.[a-z]{2,}$/.test(clean)) return toast.error("Enter a valid domain name.");
+    if (!/^[a-z0-9][a-z0-9-]{1,62}\.[a-z]{2,}$/.test(clean)) {
+      toast.error("Enter a valid domain name.");
+      return;
+    }
     toast.success(`${clean} is available!`, { description: "Secure it before someone else does." });
   };
   const submitOrder = async (event: FormEvent) => {
     event.preventDefault();
-    if (Number(captcha) !== challenge.a + challenge.b) return toast.error("That answer isn’t correct. Please try again.");
+    if (Number(captcha) !== challenge.a + challenge.b) {
+      toast.error("That answer isn’t correct. Please try again.");
+      return;
+    }
     setSending(true);
     try {
       await sendOrder({ data: { plan: selectedPlan, name, contact } });
@@ -97,7 +103,11 @@ function Index() {
           <div className="glass-panel relative overflow-hidden rounded-lg">
             <div className="flex items-center justify-between border-b border-border px-5 py-4"><div className="flex gap-1.5"><span className="size-2.5 rounded-full bg-destructive"/><span className="size-2.5 rounded-full bg-chart-4"/><span className="size-2.5 rounded-full bg-success"/></div><span className="font-mono text-[11px] text-muted-foreground">deploy.oxyn / terminal</span><Terminal className="size-4 text-primary"/></div>
             <div className="space-y-5 p-5 sm:p-7">
-              <div className="grid gap-2 sm:grid-cols-3">{[["Operational", CircleCheck], ["1.2s", Zap], ["Active", ShieldCheck]].map(([v, Icon], i) => <div key={String(v)} className="rounded-md border border-border bg-background/50 p-3"><Icon className="mb-3 size-4 text-primary"/><span className="block text-[10px] uppercase text-muted-foreground">{["Status", "Deploy speed", "DDoS shield"][i]}</span><b className="mt-1 block font-mono text-xs">{String(v)}</b></div>)}</div>
+              <div className="grid gap-2 sm:grid-cols-3">{[
+                { value: "Operational", label: "Status", Icon: CircleCheck },
+                { value: "1.2s", label: "Deploy speed", Icon: Zap },
+                { value: "Active", label: "DDoS shield", Icon: ShieldCheck },
+              ].map(({ value, label, Icon }) => <div key={value} className="rounded-md border border-border bg-background/50 p-3"><Icon className="mb-3 size-4 text-primary"/><span className="block text-[10px] uppercase text-muted-foreground">{label}</span><b className="mt-1 block font-mono text-xs">{value}</b></div>)}</div>
               <div className="rounded-md border border-border bg-background/70 p-5 font-mono text-xs leading-7 text-muted-foreground">
                 <p className="animate-[terminal-line_.4s_ease-out] text-foreground"><span className="text-primary">$</span> git push oxyn main</p>
                 <p className="animate-[terminal-line_.4s_.35s_both]">→ Building project...</p>
@@ -116,10 +126,10 @@ function Index() {
       <section id="features" className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
         <div className="mb-12 max-w-2xl"><span className="font-mono text-xs uppercase text-primary">Infrastructure, evolved</span><h2 className="mt-4 text-3xl font-bold sm:text-5xl">Built on Enterprise-Grade Hardware.</h2><p className="mt-4 text-muted-foreground">A resilient platform engineered for speed, security, and intelligent operations.</p></div>
         <div className="grid gap-4 md:grid-cols-3">{[
-          [Server, "KVM Virtualization", "Enterprise-grade hardware VPS for general purpose computing with automated backups."],
-          [ShieldCheck, "Robust Anti-DDoS", "Continuous real-time traffic filtering with automatic mitigation."],
-          [Bot, "Oxyn AI Diagnostics", "Built-in AI log analyzer for zero-downtime server performance optimization."],
-        ].map(([Icon, title, text]) => <article key={String(title)} className="group glass-panel rounded-lg p-7 transition duration-300 hover:-translate-y-1 hover:border-primary/40"><div className="mb-8 flex size-11 items-center justify-center rounded-md border border-primary/25 bg-primary/10"><Icon className="size-5 text-primary"/></div><h3 className="text-xl font-semibold">{String(title)}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{String(text)}</p><div className="mt-8 h-px w-12 bg-primary/50 transition-all group-hover:w-24"/></article>)}</div>
+          { Icon: Server, title: "KVM Virtualization", text: "Enterprise-grade hardware VPS for general purpose computing with automated backups." },
+          { Icon: ShieldCheck, title: "Robust Anti-DDoS", text: "Continuous real-time traffic filtering with automatic mitigation." },
+          { Icon: Bot, title: "Oxyn AI Diagnostics", text: "Built-in AI log analyzer for zero-downtime server performance optimization." },
+        ].map(({ Icon, title, text }) => <article key={title} className="group glass-panel rounded-lg p-7 transition duration-300 hover:-translate-y-1 hover:border-primary/40"><div className="mb-8 flex size-11 items-center justify-center rounded-md border border-primary/25 bg-primary/10"><Icon className="size-5 text-primary"/></div><h3 className="text-xl font-semibold">{title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{text}</p><div className="mt-8 h-px w-12 bg-primary/50 transition-all group-hover:w-24"/></article>)}</div>
       </section>
 
       <section id="pricing" className="border-y border-border bg-card/20 py-28"><div className="mx-auto max-w-7xl px-5 lg:px-8">

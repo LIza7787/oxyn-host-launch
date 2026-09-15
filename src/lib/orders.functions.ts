@@ -11,7 +11,7 @@ const orderSchema = z.object({
 });
 
 export const sendTelegramOrder = createServerFn({ method: "POST" })
-  .inputValidator((input) => orderSchema.parse(input))
+  .validator((input) => orderSchema.parse(input))
   .handler(async ({ data }) => {
     const lovableKey = process.env["LOVABLE_API_KEY"];
     const telegramKey = process.env["TELEGRAM_API_KEY"];
